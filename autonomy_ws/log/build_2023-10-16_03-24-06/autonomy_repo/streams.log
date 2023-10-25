@@ -1,0 +1,50 @@
+[0.119s] Invoking command in '/home/mark/autonomy_ws/build/autonomy_repo': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/humble /home/mark/.local/bin/cmake /home/mark/autonomy_ws/src/autonomy_repo -DCMAKE_INSTALL_PREFIX=/home/mark/autonomy_ws/install/autonomy_repo
+[0.338s] -- The C compiler identification is GNU 11.4.0
+[0.467s] -- The CXX compiler identification is GNU 11.4.0
+[0.497s] -- Detecting C compiler ABI info
+[0.579s] -- Detecting C compiler ABI info - done
+[0.593s] -- Check for working C compiler: /usr/bin/cc - skipped
+[0.594s] -- Detecting C compile features
+[0.595s] -- Detecting C compile features - done
+[0.607s] -- Detecting CXX compiler ABI info
+[0.703s] -- Detecting CXX compiler ABI info - done
+[0.723s] -- Check for working CXX compiler: /usr/bin/c++ - skipped
+[0.723s] -- Detecting CXX compile features
+[0.724s] -- Detecting CXX compile features - done
+[0.734s] -- Found ament_cmake: 1.3.5 (/opt/ros/humble/share/ament_cmake/cmake)
+[1.246s] -- Found Python3: /usr/bin/python3.10 (found version "3.10.12") found components: Interpreter 
+[1.403s] -- Found ament_lint_auto: 0.12.8 (/opt/ros/humble/share/ament_lint_auto/cmake)
+[1.535s] -- Added test 'flake8' to check Python code syntax and style conventions
+[1.536s] -- Added test 'lint_cmake' to check CMake code style
+[1.537s] -- Added test 'pep257' to check Python code against some of the docstring style conventions in PEP 257
+[1.539s] -- Added test 'xmllint' to check XML markup files
+[1.542s] -- Configuring done (1.4s)
+[1.546s] -- Generating done (0.0s)
+[1.547s] -- Build files have been written to: /home/mark/autonomy_ws/build/autonomy_repo
+[1.558s] Invoked command in '/home/mark/autonomy_ws/build/autonomy_repo' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/humble /home/mark/.local/bin/cmake /home/mark/autonomy_ws/src/autonomy_repo -DCMAKE_INSTALL_PREFIX=/home/mark/autonomy_ws/install/autonomy_repo
+[1.562s] Invoking command in '/home/mark/autonomy_ws/build/autonomy_repo': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/humble /home/mark/.local/bin/cmake --build /home/mark/autonomy_ws/build/autonomy_repo -- -j4 -l4
+[1.620s] Invoked command in '/home/mark/autonomy_ws/build/autonomy_repo' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/humble /home/mark/.local/bin/cmake --build /home/mark/autonomy_ws/build/autonomy_repo -- -j4 -l4
+[1.729s] Invoking command in '/home/mark/autonomy_ws/build/autonomy_repo': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/humble /home/mark/.local/bin/cmake --install /home/mark/autonomy_ws/build/autonomy_repo
+[1.766s] -- Install configuration: ""
+[1.766s] -- Installing: /home/mark/autonomy_ws/install/autonomy_repo/lib/autonomy_repo/heading_controller.py
+[1.766s] -- Installing: /home/mark/autonomy_ws/install/autonomy_repo/lib/autonomy_repo/p3_plot.py
+[1.766s] -- Installing: /home/mark/autonomy_ws/install/autonomy_repo/share/autonomy_repo/launch
+[1.766s] -- Installing: /home/mark/autonomy_ws/install/autonomy_repo/share/autonomy_repo/launch/heading_control.launch.py
+[1.767s] -- Installing: /home/mark/autonomy_ws/install/autonomy_repo/share/autonomy_repo/rviz
+[1.767s] -- Installing: /home/mark/autonomy_ws/install/autonomy_repo/share/autonomy_repo/rviz/default.rviz
+[1.767s] -- Installing: /home/mark/autonomy_ws/install/autonomy_repo/share/ament_index/resource_index/package_run_dependencies/autonomy_repo
+[1.768s] -- Installing: /home/mark/autonomy_ws/install/autonomy_repo/share/ament_index/resource_index/parent_prefix_path/autonomy_repo
+[1.768s] -- Installing: /home/mark/autonomy_ws/install/autonomy_repo/share/autonomy_repo/environment/ament_prefix_path.sh
+[1.768s] -- Installing: /home/mark/autonomy_ws/install/autonomy_repo/share/autonomy_repo/environment/ament_prefix_path.dsv
+[1.768s] -- Installing: /home/mark/autonomy_ws/install/autonomy_repo/share/autonomy_repo/environment/path.sh
+[1.768s] -- Installing: /home/mark/autonomy_ws/install/autonomy_repo/share/autonomy_repo/environment/path.dsv
+[1.769s] -- Installing: /home/mark/autonomy_ws/install/autonomy_repo/share/autonomy_repo/local_setup.bash
+[1.769s] -- Installing: /home/mark/autonomy_ws/install/autonomy_repo/share/autonomy_repo/local_setup.sh
+[1.769s] -- Installing: /home/mark/autonomy_ws/install/autonomy_repo/share/autonomy_repo/local_setup.zsh
+[1.769s] -- Installing: /home/mark/autonomy_ws/install/autonomy_repo/share/autonomy_repo/local_setup.dsv
+[1.770s] -- Installing: /home/mark/autonomy_ws/install/autonomy_repo/share/autonomy_repo/package.dsv
+[1.770s] -- Installing: /home/mark/autonomy_ws/install/autonomy_repo/share/ament_index/resource_index/packages/autonomy_repo
+[1.770s] -- Installing: /home/mark/autonomy_ws/install/autonomy_repo/share/autonomy_repo/cmake/autonomy_repoConfig.cmake
+[1.770s] -- Installing: /home/mark/autonomy_ws/install/autonomy_repo/share/autonomy_repo/cmake/autonomy_repoConfig-version.cmake
+[1.770s] -- Installing: /home/mark/autonomy_ws/install/autonomy_repo/share/autonomy_repo/package.xml
+[1.777s] Invoked command in '/home/mark/autonomy_ws/build/autonomy_repo' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/humble /home/mark/.local/bin/cmake --install /home/mark/autonomy_ws/build/autonomy_repo
