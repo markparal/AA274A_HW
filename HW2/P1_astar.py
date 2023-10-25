@@ -45,7 +45,9 @@ class AStar(object):
         #raise NotImplementedError("is_free not implemented")
 
         # Check if x is free using DetOccupancyGrid2D method is_free()
-        return self.occupancy.is_free(x)
+        if (self.occupancy.is_free(x)) and (self.statespace_hi[0]>x[0]>self.statespace_lo[0]) and (self.statespace_hi[1]>x[1]>self.statespace_lo[1]):
+            return True
+        return False
         
         ########## Code ends here ##########
 
@@ -116,7 +118,7 @@ class AStar(object):
         # Check if neighbors are possible. If they are, add neighbor tuple to neighbors
         for i in range(0,8):
             x_neighbor = tuple(map(lambda m, n: m + n, x,neighbor_grid[i]))
-            self.snap_to_grid(x_neighbor)
+            x_neighbor = self.snap_to_grid(x_neighbor)
             if(self.is_free(x_neighbor)):
                 if x_neighbor in neighbors:
                     continue
@@ -193,7 +195,6 @@ class AStar(object):
 
         # 
         while (len(self.open_set) > 0):
-            print(len(self.open_set))
             x_current = self.find_best_est_cost_through()
             if x_current == self.x_goal:
                 self.path = self.reconstruct_path()
