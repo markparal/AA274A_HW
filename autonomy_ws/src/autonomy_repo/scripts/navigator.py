@@ -228,6 +228,7 @@ class NavNode(BaseNavigator):
         om = self.kp * head_err
         new_control = TurtleBotControl()
         new_control.omega = om
+        new_control.v = 0.
         return new_control
     
     def compute_trajectory_tracking_control(self,
@@ -237,23 +238,21 @@ class NavNode(BaseNavigator):
     ) -> TurtleBotControl:
 
         dt = t - self.t_prev
-        x_array = interpolate.splev(state.x,plan.path_x_spline,der=2)
-        y_array = interpolate.splev(state.y,plan.path_y_spline,der=2)
-        x_d = x_array[0]
-        xd_d = x_array[1]
-        xdd_d = x_array[2]
-        y_d = y_array[0]
-        yd_d = y_array[1]
-        ydd_d = y_array[2]
+        x_d = interpolate.splev(state.x,plan.path_x_spline,der=0)
+        xd_d = interpolate.splev(state.x,plan.path_x_spline,der=1)
+        xdd_d = interpolate.splev(state.x,plan.path_x_spline,der=2)
+        y_d = interpolate.splev(state.y,plan.path_y_spline,der=0)
+        yd_d = interpolate.splev(state.y,plan.path_y_spline,der=1)
+        ydd_d = interpolate.splev(state.y,plan.path_y_spline,der=2)
 
         ########## Code starts here ##########
-        u1 = xdd_d + self.kpx * (x_d - state.x) + self.kdx * (xd_d - self.V_prev * np.cos(state.th))
-        u2 = ydd_d + self.kpy * (y_d - state.y) + self.kdy * (yd_d - self.V_prev * np.sin(state.th))
+        u1 = xdd_d + self.kpx * (x_d - state.x) + self.kdx * (xd_d - self.V_prev * np.cos(state.theta))
+        u2 = ydd_d + self.kpy * (y_d - state.y) + self.kdy * (yd_d - self.V_prev * np.sin(state.theta))
 
-        V = self.V_prev + dt * (u1 * np.cos(state.th) + u2 * np.sin(state.th))
+        V = self.V_prev + dt * (u1 * np.cos(state.theta) + u2 * np.sin(state.theta))
         if (V < self.V_PREV_THRES):
             V = self.V_PREV_THRES
-        om = (u2 * np.cos(state.th) - u1 * np.sin(state.th)) / V
+        om = (u2 * np.cos(state.theta) - u1 * np.sin(state.theta)) / V
         
         ########## Code ends here ##########
 
@@ -265,6 +264,8 @@ class NavNode(BaseNavigator):
         control = TurtleBotControl()
         control.v = V
         control.omega = om
+
+        return control
     
     def compute_trajectory_plan(self,
         state: TurtleBotState,
@@ -272,21 +273,25 @@ class NavNode(BaseNavigator):
         occupancy: StochOccupancyGrid2D,
         resolution: float,
         horizon: float,
-    ) -> T.Optional[TrajectoryPlan]:
+    ) -> TrajectoryPlan:
 
         x_init = (state.x, state.y)
         x_goal = (goal.x, goal.y)
 
-        astar = AStar((0, 0), (tuple(occupancy.size_xy)), x_init, x_goal, occupancy,resolution=resolution)
-        if (not astar.solve()) or (len(astar.path) < 4):
+        astar = AStar((-horizon, -horizon), (horizon,horizon), x_init, x_goal, occupancy, resolution=resolution)
+        if (not astar.solve()):
+            return None
+        
+        path = np.asarray(astar.path)
+
+        if (np.shape(path)[0] < 4):
             return None
 
         self.V_prev = 0.
         self.om_prev = 0.
         self.t_prev = 0.
         
-        path = np.asarray(astar.path)
-        ts = np.array([0])
+        ts = np.zeros(len(path))
         path_x = np.array([])
         path_y = np.array([])
         cumulative = 0
@@ -298,8 +303,8 @@ class NavNode(BaseNavigator):
         
         # Calculate cumulative time for each waypoint
         for i in range(0,len(path)-1):
-            ts = np.append(self.ts,(np.linalg.norm(path[i+1] - path[i]) / self.v_desired)+cumulative)
-            cumulative = cumulative + ts[i+1]
+            ts[i+1] = np.linalg.norm(path[i+1] - path[i]) / self.v_desired + cumulative
+            cumulative = ts[i+1]
         
         # Fit cubic splines for x and y
         path_x_spline = interpolate.splrep(ts, path_x, k=3, s=self.spline_alpha)
@@ -314,7 +319,7 @@ class NavNode(BaseNavigator):
             duration=ts[-1],
         )
 
-        return T.Optional[traj]
+        return traj
 
 
 if __name__ == "__main__":
